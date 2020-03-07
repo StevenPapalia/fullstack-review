@@ -41,8 +41,7 @@ class App extends React.Component {
       data: JSON.stringify({user: term}),
       contentType: "application/json",
       success: (data) =>  {
-        console.log('boutta call top25');
-        this.grabTop25();
+        setTimeout(this.grabTop25.bind(this), 500)
       },
       error: (err) => console.log(err)
     })

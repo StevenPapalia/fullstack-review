@@ -20,7 +20,7 @@ app.get('/repos', function (req, res) {
   Repo.find(function (err, repos) {
     if (err) return console.error(err);
     res.send(repos);
-  }).limit(25).sort( { repoName: 1 } );
+  }).limit(25).sort( { stars: -1 } );
   // res.send('got response on top25');
   // This route should send back the top 25 repos
 });

@@ -10,8 +10,8 @@ db.once('open', function() {
 
 let repoSchema = new mongoose.Schema({
   repoID: { type: Number, unique: true },
-  repoName: String,
-  repoURL: String,
+  repoName: { type: String, unique: true },
+  repoURL: { type: String, unique: true },
   repoOwnerLogin: String,
   repoOwnerID: Number,
   repoOwnerURL: String,
