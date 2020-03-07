@@ -13,15 +13,14 @@ app.post('/repos', jsonParser, function (req, res) {
   github.getReposByUsername(req.body.user, (information) => {
     // define a model schema
     var Repo = db.Repo;
-    // for each repo put it in a model schema
     for (var i = 0; i < information.length; i++) {
-        var oneRepo = new Repo(information[i]);
-        // save each repo to the database
-        oneRepo.save( (err, repo) => {
-          if (err) { return console.log(err); }
-          console.log('added: ', repo.repoName);
-        });
+      var oneRepo = new Repo(information[i]);
+      oneRepo.save( (err, repo) => {
+        if (err) { return console.log(err); }
+        console.log('added: ', repo.repoName);
+      } )
     }
+
   });
   res.send('Hello World!');
 });
