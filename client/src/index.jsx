@@ -19,11 +19,13 @@ class App extends React.Component {
     $.ajax({
       method: "GET",
       url: "/repos",
-      success: (data) => console.log('get req was successful'),
+      success: (data) => {
+        this.setState({
+          repos: data
+        }, () => console.log(this.state.repos))
+      },
       error: (err) => console.log(err)
     })
-    // server will reach out to sb and do work
-    // update state to response
     // pass state to movieList
   }
 
