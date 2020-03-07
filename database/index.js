@@ -9,7 +9,7 @@ db.once('open', function() {
 });
 
 let repoSchema = new mongoose.Schema({
-  repoID: Number,
+  repoID: { type: Number, unique: true },
   repoName: String,
   repoURL: String,
   repoOwnerLogin: String,
@@ -22,8 +22,12 @@ let repoSchema = new mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 
-let save = (repoCallback) => {
-  repoCallback();
+let save = (repo) => {
+  var oneRepo = new Repo(repo);
+  oneRepo.save((err, repo) => {
+    if (err) { return console.log(err); }
+    console.log('added: ', repo.repoName);
+  })
 }
 
 module.exports.save = save;

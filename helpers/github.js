@@ -1,7 +1,8 @@
 const request = require('request');
 const config = require('../server/config.js');
+const db = require('../database/index.js');
 
-let getReposByUsername = (user, cb) => {
+let getReposByUsername = (user) => {
 
   let options = {
     url: `https://api.github.com/users/${user}/repos`,
@@ -15,11 +16,9 @@ let getReposByUsername = (user, cb) => {
     if (error) { console.log(error); }
     if (!error && response.statusCode == 200) {
       const info = JSON.parse(body);
-      const infoToSendBack = [];
       for (var i = 0; i < info.length; i++) {
-        infoToSendBack.push({repoID: info[i].id, repoName: info[i].name, repoURL: info[i].url, repoOwnerLogin: info[i].owner.login, repoOwnerID: info[i].owner.id, ownerURL: info[i].owner.url, forks: info[i].forks_count, stars: info[i].stargazers_count});
+        db.save({repoID: info[i].id, repoName: info[i].name, repoURL: info[i].svn_url, repoOwnerLogin: info[i].owner.login, repoOwnerID: info[i].owner.id, ownerURL: info[i].owner.url, forks: info[i].forks_count, stars: info[i].stargazers_count});
       }
-      cb(infoToSendBack);
     }
   }
 

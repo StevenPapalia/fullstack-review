@@ -12,6 +12,10 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.grabTop25();
+  }
+
   // grabTop25
   grabTop25() {
     // get to server
