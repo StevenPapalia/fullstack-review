@@ -18,7 +18,23 @@ app.post('/repos', jsonParser, function (req, res) {
       oneRepo.save( (err, repo) => {
         if (err) { return console.log(err); }
         console.log('added: ', repo.repoName);
-      } )
+      } );
+
+    // Repo.findOne({ repoID: information[i].repoID }, function (err, repo){
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     if (repo) {
+    //       console.log('exists');
+    //     } else {
+    //       console.log('no exists');
+
+    //     }
+    //   }
+    // });
+
+
+
     }
 
   });
