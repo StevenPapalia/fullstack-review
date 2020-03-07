@@ -23,12 +23,9 @@ let Repo = mongoose.model('Repo', repoSchema);
 
 
 let save = (reposArray) => {
-  // console.log(reposArray);
-  var example = new Repo(reposArray[0]);
-  console.log(example.repoName); // 'Silence'
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+  for (var i = 0; i < reposArray.lemgth; i++) {
+    // new Repo(reposArray[i]);
+  }
   // if field repo does not already exist in the repos
   // insert repo into repos with props defined in our schema
   // select all from db to check if insertion was successful
