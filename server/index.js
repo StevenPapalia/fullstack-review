@@ -9,11 +9,19 @@ var jsonParser = bodyParser.json();
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', jsonParser, function (req, res) {
+  // get repos from github
   github.getReposByUsername(req.body.user, (information) => {
-    // console.log(information);
-    db.save(information);
-    // save the repo information in the database
-    // call save function here on the information
+    // define a model schema
+    var Repo = db.Repo;
+    // for each repo put it in a model schema
+    for (var i = 0; i < information.length; i++) {
+        var oneRepo = new Repo(information[i]);
+        // save each repo to the database
+        oneRepo.save( (err, repo) => {
+          if (err) { return console.log(err); }
+          console.log('added: ', repo.repoName);
+        });
+    }
   });
   res.send('Hello World!');
 });

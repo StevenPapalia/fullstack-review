@@ -22,10 +22,20 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 
-let save = (reposArray) => {
-  for (var i = 0; i < reposArray.lemgth; i++) {
-    // new Repo(reposArray[i]);
-  }
+let save = (repoCallback) => {
+  repoCallback();
+  // var oneRepo = new Repo(reposArray[0]);
+  // for (var i = 0; i < reposArray.lemgth; i++) {
+  //   db.updateIfNotExists( new Repo(reposArray[i]) );
+  // }
+
+  // TODO
+  // put logic to turn array of objects into array of models in server
+  // call save on each model
+  // pass an error first pattern callback to save
+  // (err, repo) => if err log err, else log repo.name saved!
+  // check db
+
   // if field repo does not already exist in the repos
   // insert repo into repos with props defined in our schema
   // select all from db to check if insertion was successful
@@ -35,9 +45,6 @@ let save = (reposArray) => {
   // callback
 }
 
-// fluffy.save(function (err, fluffy) {
-//   if (err) return console.error(err);
-//   fluffy.speak();
-// });
-
 module.exports.save = save;
+module.exports.Repo = Repo;
+module.exports.db = db;
