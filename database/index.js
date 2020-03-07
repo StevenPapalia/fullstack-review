@@ -7,7 +7,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
   console.log('its gravy');
-});
+})
 
 let repoSchema = new mongoose.Schema({
   repoID: { type: Number, unique: true },
