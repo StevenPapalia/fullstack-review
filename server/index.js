@@ -43,6 +43,8 @@ app.post('/repos', jsonParser, function (req, res) {
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
+  console.log('made it here!!!!!');
+  res.send('got response on top25');
   // This route should send back the top 25 repos
 });
 

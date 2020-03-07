@@ -12,6 +12,21 @@ class App extends React.Component {
     }
   }
 
+  // grabTop25
+  grabTop25() {
+    // get to server
+    console.log(`grabing the top 25`);
+    $.ajax({
+      method: "GET",
+      url: "/repos",
+      success: (data) => console.log('get req was successful'),
+      error: (err) => console.log(err)
+    })
+    // server will reach out to sb and do work
+    // update state to response
+    // pass state to movieList
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
@@ -19,7 +34,10 @@ class App extends React.Component {
       url: "/repos",
       data: JSON.stringify({user: term}),
       contentType: "application/json",
-      success: (data) => console.log('made it'),
+      success: (data) =>  {
+        console.log('boutta call top25');
+        this.grabTop25();
+      },
       error: (err) => console.log(err)
     })
   }
