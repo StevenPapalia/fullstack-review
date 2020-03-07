@@ -19,7 +19,7 @@ class App extends React.Component {
       url: "/repos",
       data: JSON.stringify({user: term}),
       contentType: "application/json",
-      success: () => console.log('made it'),
+      success: (data) => console.log('made it'),
       error: (err) => console.log(err)
     })
   }

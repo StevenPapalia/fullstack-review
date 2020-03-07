@@ -1,14 +1,7 @@
 const request = require('request');
 const config = require('../server/config.js');
 
-let getReposByUsername = (user) => {
-  // TODO - Use the request module to request repos for a specific
-  // user from the github API
-  // The options object has been provided to help you out,
-  // but you'll have to fill in the URL
-
-  // 'github.com/orgs/octokit/repos'
-  console.log(user);
+let getReposByUsername = (user, cb) => {
 
   let options = {
     url: `https://api.github.com/users/${user}/repos`,
@@ -22,11 +15,11 @@ let getReposByUsername = (user) => {
     if (error) { console.log(error); }
     if (!error && response.statusCode == 200) {
       const info = JSON.parse(body);
-      // console.log(info.stargazers_count + " Stars");
-      // console.log(info.forks_count + " Forks");
+      const infoToSendBack = [];
       for (var i = 0; i < info.length; i++) {
-        console.log("repo name: ", info[i].name);
+        infoToSendBack.push({repoID: info[i].id, repoName: info[i].name, repoURL: info[i].url, repoOwnerLogin: info[i].owner.login, repoOwnerID: info[i].owner.id, ownerURL: info[i].owner.url, forks: info[i].forks_count, stars: info[i].stargazers_count});
       }
+      cb(infoToSendBack);
     }
   }
 

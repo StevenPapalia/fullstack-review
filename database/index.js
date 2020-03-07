@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcher', {useNewUrlParser: true});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('its gravy');
+});
 
 let repoSchema = mongoose.Schema({
   repoID: Number,
   repoName: String,
   repoURL: String,
-  repoOwner {
-    repoOwnerLogin: String,
-    repoOwnerID: Number,
-    repoOwnerURL: String
-  },
+  repoOwnerLogin: String,
+  repoOwnerID: Number,
+  repoOwnerURL: String,
   forks: Number,
   stars: Number
 });
@@ -17,12 +22,13 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 
-let save = (callback) => {
+let save = (reposArray) => {
+  // console.log(reposArray);
+  var example = new Repo(reposArray[0]);
+  console.log(example.repoName); // 'Silence'
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-
-
   // if field repo does not already exist in the repos
   // insert repo into repos with props defined in our schema
   // select all from db to check if insertion was successful
@@ -32,20 +38,9 @@ let save = (callback) => {
   // callback
 }
 
-module.exports.save = save;
+// fluffy.save(function (err, fluffy) {
+//   if (err) return console.error(err);
+//   fluffy.speak();
+// });
 
-// db.repos.update({ repoID: id },
-// {
-//   repoName: String,
-//   repoURL: String,
-//   repoOwner {
-//     repoOwnerLogin: String,
-//     repoOwnerID: Number,
-//     repoOwnerURL: String
-//   },
-//   forks: Number,
-//   stars: Number
-// },
-// {
-//   upsert: true
-// })
+module.exports.save = save;
